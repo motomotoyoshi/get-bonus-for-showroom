@@ -11,7 +11,8 @@ const
                 '--lang=ja',
                 '--window-size=1260,900',
             ]
-    });
+        }
+    );
     const page = await browser.newPage();
     await page.setViewport({width: 1260, height: 600});
     await page.goto('https://example.com');

@@ -1,23 +1,37 @@
-const
-    puppeteer = require('puppeteer-core'),
-    conf = require('./conf');
+const　puppeteer = require('puppeteer-core');
+const conf = require('./conf');
 
 (async () => {
-    const browser = await puppeteer.launch(
-        {
-            executablePath: conf.chromePath,
-            headless: false,
-            args:[
-                '--lang=ja',
-                '--window-size=1260,900',
-            ]
-        }
-    );
-    const page = await browser.newPage();
-    await page.setViewport({width: 1260, height: 600});
-    await page.goto('https://example.com');
-    await page.waitForSelector('body');
-    await page.waitFor(3000);
+  const browser = await puppeteer.launch(
+    {
+      executablePath: conf.chromePath,
+      headless: false,
+      args:[
+        '--lang=ja',
+        '--window-size=1260,900',
+      ]
+    }
+  );
+  const page = await browser.newPage();
+  await page.setViewport({width: 1260, height: 900});
 
-    await browser.close();
+  // ログインまで
+  await page.goto('https://www.showroom-live.com/onlive');
+  await page.waitForSelector('body');
+  await page.waitFor(5000);
+  await page.click('#js-side-box > div > div > ul > li:nth-child(2) > a');
+  await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
+  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', conf.account_id);
+  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', conf.pass);
+  await page.waitFor(5000);
+  await page.click('#js-login-submit');
+
+  // ルームへ
+  await page.waitFor(3000);
+
+  // 星集め
+  await page.waitForSelector('#room-gift-item-list > li:nth-child(1)');
+
+
+  // await browser.close();
 })();

@@ -9,9 +9,9 @@ npm i
 ```
 Create *conf.js* like *conf.js.example*.
 ```
-exports.chromePath = 'YOUR CHROME PATH';
-exports.account_id = 'YOUR ACCOUNT_ID';
-exports.pass = 'YOUR PASSWORD';
+exports.chromePath = 'YOUR_CHROME_PATH';
+exports.account_id = 'YOUR_ACCOUNT_ID';
+exports.pass = 'YOUR_PASSWORD';
 ```
 
 Execute

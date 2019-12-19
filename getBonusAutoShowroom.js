@@ -42,6 +42,12 @@ puppeteer.launch(option).then(async browser => {
   // await page.waitFor(5000);
   // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
 
+  // const star = await page.evaluate(() => {
+  //   return document.querySelector("#room-gift-item-list > li:nth-child(1) > a > img").getAttribute('src') == 'https://image.showroom-live.com/showroom-prod/assets/img/gift/1_s.png?1576112835';
+  // });
+
+  // console.log(star);
+
   // const json = await page.evaluate(() => {
   //   return document.getElementById("js-initial-data");
   // })
@@ -49,7 +55,7 @@ puppeteer.launch(option).then(async browser => {
   // console.log(json);
   
   // ルームへ入って星を取得
-  for (var j = 0; j < rooms.length;) {
+  for (var j = 0; j < rooms.length;j++) {
     try {
       console.log(rooms[j]);
       await page.goto(rooms[j]);
@@ -60,20 +66,19 @@ puppeteer.launch(option).then(async browser => {
       });
 
       // 種だったら次のルームへ
-      if (star){
-        
-      } else {
-        j++;
+      if (!star){
+        continue;
       }
 
       // bonus取得まで待機
       await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 50000 });
-      j++;
+      continue;
+
    } catch {
      // 例外発生で次のルームへ
-     j++
+    continue;
    }
   };
-  await page.close();
-  await browser.close();
+  // await page.close();
+  // await browser.close();
 });

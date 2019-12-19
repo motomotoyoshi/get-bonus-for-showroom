@@ -41,13 +41,6 @@ puppeteer.launch(option).then(async browser => {
   // await page.goto(rooms[0]);
   // await page.waitFor(5000);
   // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
-
-  // const star = await page.evaluate(() => {
-  //   return document.querySelector("#room-gift-item-list > li:nth-child(1) > a > img").getAttribute('src') == 'https://image.showroom-live.com/showroom-prod/assets/img/gift/1_s.png?1576112835';
-  // });
-
-  // console.log(star);
-
   // const json = await page.evaluate(() => {
   //   return document.getElementById("js-initial-data");
   // })
@@ -79,6 +72,6 @@ puppeteer.launch(option).then(async browser => {
     continue;
    }
   };
-  // await page.close();
-  // await browser.close();
+  await page.close();
+  await browser.close();
 });

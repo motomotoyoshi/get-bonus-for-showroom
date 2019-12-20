@@ -1,11 +1,11 @@
 'use strict';
 
 const puppeteer = require('puppeteer-core');
-const conf = require('./conf');
+const { chromePath, account_id, pass} = require('./conf');
 
 const option = {
-  executablePath: conf.chromePath,
-  headless: false,
+  executablePath: chromePath,
+  // headless: false,
   args: [
     '--lang=ja',
     '--window-size=1260,900',
@@ -21,15 +21,17 @@ puppeteer.launch(option).then(async browser => {
   await page.waitFor(3000);
   await page.click('#js-side-box > div > div > ul > li:nth-child(2) > a');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', conf.account_id);
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', conf.pass);
+  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
+  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);
   await page.waitFor(4000);
   await page.click('#js-login-submit');
 
   await page.waitFor(5000);
 
   const rooms = await page.evaluate(() => {
-    const roomLength = 8;
+    
+    const roomLength = 20;
+
     const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div > div.listcard-image > div.listcard-overview > div > a.js-room-link.listcard-join-btn");
     const array = [];
     for (let i = 0; i < roomLength; i++) {
@@ -39,7 +41,6 @@ puppeteer.launch(option).then(async browser => {
   });
 
   // await page.goto(rooms[0]);
-  // await page.waitFor(5000);
   // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
   // const json = await page.evaluate(() => {
   //   return document.getElementById("js-initial-data");

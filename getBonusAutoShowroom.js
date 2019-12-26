@@ -56,7 +56,7 @@ puppeteer.launch(option).then(async browser => {
       await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
       
       const star = await page.evaluate(() => {
-        return document.querySelector("#room-gift-item-list > li:nth-child(1) > a > img").getAttribute('src') == 'https://image.showroom-live.com/showroom-prod/assets/img/gift/1_s.png?1576112835';
+        return document.querySelector("#room-gift-item-list > li:nth-child(1) > a > img").getAttribute('src') == 'https://image.showroom-live.com/showroom-prod/assets/img/gift/1_s.png?1577325994';
       });
 
       // 種だったら次のルームへ
@@ -66,6 +66,7 @@ puppeteer.launch(option).then(async browser => {
 
       // bonus取得まで待機
       await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 50000 });
+      await page.waitFor(5000);
       continue;
 
    } catch {

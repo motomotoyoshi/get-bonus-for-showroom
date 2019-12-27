@@ -55,18 +55,19 @@ puppeteer.launch(option).then(async browser => {
       await page.goto(rooms[j]);
       await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
       
-      const star = await page.evaluate(() => {
-        return document.querySelector("#room-gift-item-list > li:nth-child(1) > a > img").getAttribute('src') == 'https://image.showroom-live.com/showroom-prod/assets/img/gift/1_s.png?1577325994';
+      const giftNum = await page.evaluate(() => {
+        return document.querySelector("#room-gift-item-list > li:nth-child(1) > div").textContent;
       });
 
-      // 種だったら次のルームへ
-      if (!star){
+      // 無料ギフトが99個あったら次のルームへ
+      if (giftNum == '× 99'){
         continue;
       }
 
       // bonus取得まで待機
       await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 50000 });
       await page.waitFor(5000);
+      console.log(giftNum);
       continue;
 
    } catch {

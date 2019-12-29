@@ -56,7 +56,7 @@ puppeteer.launch(option).then(async browser => {
       await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
       
       const giftNum = await page.evaluate(() => {
-        return document.querySelector("#room-gift-item-list > li:nth-child(1) > div").textContent;
+        return document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent;
       });
 
       // 無料ギフトが99個あったら次のルームへ

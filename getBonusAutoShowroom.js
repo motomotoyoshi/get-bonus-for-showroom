@@ -23,10 +23,10 @@ puppeteer.launch(option).then(async browser => {
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);
-  await page.waitFor(4000);
+  await page.waitFor(3000);
   await page.click('#js-login-submit');
 
-  await page.waitFor(5000);
+  await page.waitFor(3000);
 
   const rooms = await page.evaluate(() => {
     
@@ -39,25 +39,18 @@ puppeteer.launch(option).then(async browser => {
     }
     return array;
   });
-
-  // await page.goto(rooms[0]);
-  // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
-  // const json = await page.evaluate(() => {
-  //   return document.getElementById("js-initial-data");
-  // })
-  // await page.waitFor(5000);
-  // console.log(json);
   
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {
     try {
       console.log(rooms[j]);
+      console.log(new Date().toString());
       await page.goto(rooms[j]);
-      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 40000 });
+      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
       
-      const giftNum = await page.evaluate(() => {
-        return document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent;
-      });
+      const giftNum = await page.evaluate(() => 
+        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
+      );
 
       // 無料ギフトが99個あったら次のルームへ
       if (giftNum == '× 99'){
@@ -65,9 +58,12 @@ puppeteer.launch(option).then(async browser => {
       }
 
       // bonus取得まで待機
-      await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 50000 });
-      await page.waitFor(5000);
-      console.log(giftNum);
+      await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 40000 });
+      
+      await page.waitFor(3000);
+      console.log(await page.evaluate(() =>
+        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
+      ));
       continue;
 
    } catch {

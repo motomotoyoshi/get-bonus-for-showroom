@@ -44,7 +44,6 @@ puppeteer.launch(option).then(async browser => {
   for (var j = 0; j < rooms.length;j++) {
     try {
       console.log(rooms[j]);
-      console.log(new Date().toString());
       await page.goto(rooms[j]);
       await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
       

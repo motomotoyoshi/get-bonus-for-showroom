@@ -1,7 +1,7 @@
 'use strict';
 
 const puppeteer = require('puppeteer-core');
-const { chromePath, account_id, pass} = require('./conf');
+const { chromePath, account_id, pass } = require('./conf');
 
 const option = {
   executablePath: chromePath,
@@ -65,7 +65,7 @@ puppeteer.launch(option).then(async browser => {
       ));
       continue;
 
-   } catch {
+   } catch(e) {
      // 例外発生で次のルームへ
     continue;
    }

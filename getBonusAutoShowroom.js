@@ -19,7 +19,7 @@ puppeteer.launch(option).then(async browser => {
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');
   await page.waitFor(3000);
-  await page.click('#js-side-box > div > div > ul > li:nth-child(2) > a');
+  await page.click('#js-side-box > div > div > ul > li:nth-child(2) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);

@@ -5,7 +5,7 @@ const { chromePath, account_id, pass } = require('./conf');
 
 const option = {
   executablePath: chromePath,
-  // headless: false,
+  headless: false,
   args: [
     '--lang=ja',
     '--window-size=1260,900',
@@ -28,9 +28,12 @@ puppeteer.launch(option).then(async browser => {
 
   await page.waitFor(3000);
 
+  // await page.goto(room1);
+  // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
+
   const rooms = await page.evaluate(() => {
-    
-    const roomLength = 20;
+
+    const roomLength = 50;
 
     const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div > div.listcard-image > div.listcard-overview > div > a.js-room-link.listcard-join-btn");
     const array = [];
@@ -40,36 +43,53 @@ puppeteer.launch(option).then(async browser => {
     return array;
   });
   
+
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {
-    try {
+    // try {
       console.log(rooms[j]);
       await page.goto(rooms[j]);
-      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
+      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > a > img', { timeout: 20000 });
       
       const giftLength = await page.evaluate(() => 
-        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
+        Number(document.querySelector("#room-gift-item-list > li:nth-child(1) > div").textContent.replace('× ', ''))
       );
-
-      // 無料ギフトが99個あったら次のルームへ
-      if (giftLength == '× 99'){
-        continue;
-      }
-
-      // bonus取得まで待機
-      await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 40000 });
-      
+      console.log(await giftLength);
       await page.waitFor(3000);
-      console.log(await page.evaluate(() =>
-        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
-      ));
-      continue;
 
-   } catch(e) {
-     // 例外発生で次のルームへ
-    continue;
+      if (giftLength >= 10) {
+        for (var k = 0; k <= 10; k++) {
+          await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
+        }
+        await page.waitFor(5000);
+
+        for (var k = 0; k <= 10; k++) {
+          await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
+        }
+        await page.waitFor(5000);
+
+        for (var k = 0; k <= 10; k++) {
+          await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
+        }
+        await page.waitFor(5000);
+
+        for (var k = 0; k <= 10; k++) {
+          await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
+        }
+        await page.waitFor(5000);
+
+        for (var k = 0; k <= 10; k++) {
+          await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
+        }
+        await page.waitFor(5000);
+      }
+  //     continue;
+
+  //  } catch(e) {
+  //    // 例外発生で次のルームへ
+  //   continue;
    }
-  };
-  await page.close();
-  await browser.close();
+  // };
+  // await page.close();
+  // await browser.close();
 });

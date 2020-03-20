@@ -27,7 +27,7 @@ switch (process.argv[2]) {
 
 const option = {
   executablePath: chromePath,
-  headless: false,
+  // headless: false,
   args: [
     '--lang=ja',
     '--window-size=1260,900',

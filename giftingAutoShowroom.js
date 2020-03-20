@@ -1,7 +1,29 @@
 'use strict';
 
 const puppeteer = require('puppeteer-core');
-const { chromePath, account_id, pass } = require('./conf');
+const {
+  chromePath,
+  account_id,
+  pass,
+  tRoom1,
+  tRoom2
+} = require('./conf');
+
+var room;
+
+switch (process.argv[2]) {
+  case '1':
+    var room = tRoom1
+    break;
+
+  case '2':
+    var room = tRoom2
+    break;
+
+  default:
+    console.log('Enter Room number.');
+    break;
+}
 
 const option = {
   executablePath: chromePath,
@@ -25,71 +47,58 @@ puppeteer.launch(option).then(async browser => {
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);
   await page.waitFor(3000);
   await page.click('#js-login-submit');
+  console.log('Signin!');
 
   await page.waitFor(3000);
-
-  // await page.goto(room1);
-  // await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
-
-  const rooms = await page.evaluate(() => {
-
-    const roomLength = 50;
-
-    const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div > div.listcard-image > div.listcard-overview > div > a.js-room-link.listcard-join-btn");
-    const array = [];
-    for (let i = 0; i < roomLength; i++) {
-      array.push(li[i].href);
-    }
-    return array;
-  });
   
+  // ルームへ入って星を投げる
+  try {
+    console.log(room);
+    await page.goto(room);
+    await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > a > img', { timeout: 20000 });
+    
+    let giftLength = await page.evaluate(() => 
+      Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+    );
+    console.log(await giftLength);
+    await page.waitFor(3000);
 
-  // ルームへ入って星を取得
-  for (var j = 0; j < rooms.length;j++) {
-    // try {
-      console.log(rooms[j]);
-      await page.goto(rooms[j]);
-      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > a > img', { timeout: 20000 });
-      
-      const giftLength = await page.evaluate(() => 
-        Number(document.querySelector("#room-gift-item-list > li:nth-child(1) > div").textContent.replace('× ', ''))
-      );
-      console.log(await giftLength);
-      await page.waitFor(3000);
-
-      if (giftLength >= 10) {
+    if (giftLength >= 10) {
+      while(giftLength >= 10) {
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
         }
-        await page.waitFor(5000);
+        await page.waitFor(4000);
 
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
         }
-        await page.waitFor(5000);
+        await page.waitFor(4000);
 
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
         }
-        await page.waitFor(5000);
+        await page.waitFor(4000);
 
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
         }
-        await page.waitFor(5000);
+        await page.waitFor(4000);
 
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
         }
-        await page.waitFor(5000);
+        await page.waitFor(4000);
+        let giftLength = await page.evaluate(() =>
+          Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+        );
+        console.log(await giftLength);
       }
-  //     continue;
-
-  //  } catch(e) {
-  //    // 例外発生で次のルームへ
-  //   continue;
-   }
-  // };
-  // await page.close();
-  // await browser.close();
+    }
+  } catch (e) {
+    await page.close();
+    await browser.close();
+};
+  await page.close();
+  await browser.close();
 });

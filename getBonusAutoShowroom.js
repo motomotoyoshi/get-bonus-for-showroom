@@ -9,6 +9,7 @@ const option = {
   args: [
     '--lang=ja',
     '--window-size=1260,900',
+    // '--no-sandbox',
   ]
 };
 

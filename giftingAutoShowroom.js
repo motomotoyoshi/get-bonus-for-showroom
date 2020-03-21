@@ -31,7 +31,7 @@ const option = {
   args: [
     '--lang=ja',
     '--window-size=1260,900',
-    // '--no-sandbox',
+    '--no-sandbox',
   ]
 };
 
@@ -64,28 +64,28 @@ puppeteer.launch(option).then(async browser => {
     console.log(await giftLength);
 
     if (giftLength >= 10) {
-      while(giftLength >= 10) {
-        for (var k = 0; k <= 10; k++) {
+      // while(giftLength >= 10) {
+        for (var k = 0; k <= 100; k++) {
           await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
         }
         await page.waitFor(3000);
 
-        for (var k = 0; k <= 10; k++) {
+        for (var k = 0; k <= 100; k++) {
           await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
         }
         await page.waitFor(3000);
 
-        for (var k = 0; k <= 10; k++) {
+        for (var k = 0; k <= 100; k++) {
           await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
         }
         await page.waitFor(3000);
 
-        for (var k = 0; k <= 10; k++) {
+        for (var k = 0; k <= 100; k++) {
           await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
         }
         await page.waitFor(3000);
 
-        for (var k = 0; k <= 10; k++) {
+        for (var k = 0; k <= 100; k++) {
           await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
         }
         await page.waitFor(3000);
@@ -93,7 +93,7 @@ puppeteer.launch(option).then(async browser => {
           Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
         );
         console.log(await giftLength);
-      }
+      // }
     }
   } catch (e) {
     await page.close();

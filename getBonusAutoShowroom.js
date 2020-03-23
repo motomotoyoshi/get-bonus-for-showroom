@@ -9,7 +9,7 @@ const option = {
   args: [
     '--lang=ja',
     '--window-size=1260,900',
-    '--no-sandbox',
+    // '--no-sandbox',
   ]
 };
 
@@ -31,7 +31,7 @@ puppeteer.launch(option).then(async browser => {
 
   const rooms = await page.evaluate(() => {
     
-    const roomLength = 20;
+    const roomLength = 15;
 
     const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div > div.listcard-image > div.listcard-overview > div > a.js-room-link.listcard-join-btn");
     const array = [];

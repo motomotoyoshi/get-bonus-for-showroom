@@ -31,7 +31,7 @@ const option = {
   args: [
     '--lang=ja',
     '--window-size=1260,900',
-    '--no-sandbox',
+    // '--no-sandbox',
   ]
 };
 
@@ -58,47 +58,57 @@ puppeteer.launch(option).then(async browser => {
     await page.goto(room);
     await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > a > img', { timeout: 20000 });
     
-    let giftLength = await page.evaluate(() => 
-      Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+    var giftLength = await page.evaluate(() => 
+      Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
     );
     console.log(await giftLength);
 
-    if (giftLength >= 10) {
-      // while(giftLength >= 10) {
-        for (var k = 0; k <= 100; k++) {
+    if (giftLength > 10) {
+      while(giftLength >= 10) {
+        for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
         }
-        await page.waitFor(3000);
+        await page.waitFor(2000);
 
-        for (var k = 0; k <= 100; k++) {
+        for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
         }
-        await page.waitFor(3000);
+        await page.waitFor(2000);
 
-        for (var k = 0; k <= 100; k++) {
+        for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
         }
-        await page.waitFor(3000);
+        await page.waitFor(2000);
 
-        for (var k = 0; k <= 100; k++) {
+        for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
         }
-        await page.waitFor(3000);
+        await page.waitFor(2000);
 
-        for (var k = 0; k <= 100; k++) {
+        for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
         }
-        await page.waitFor(3000);
-        let giftLength = await page.evaluate(() =>
-          Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+        await page.waitFor(2000);
+        var giftLength = await page.evaluate(() =>
+          Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
         );
         console.log(await giftLength);
-      // }
+      }
     }
+
+    // 50カウント
+    for (var l = 0; l <= 50; l++) {
+      await page.type('#js-chat-input-comment', l);
+      await page.click('#js-room-comment > button.js-room-comment-btn.comment-btn.is-disabled');
+      await page.waitFor(1000);
+    }
+
   } catch (e) {
+    // console.log('catch');
     await page.close();
     await browser.close();
 };
+  // console.log('catch1');
   await page.close();
   await browser.close();
 });

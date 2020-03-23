@@ -98,17 +98,16 @@ puppeteer.launch(option).then(async browser => {
 
     // 50カウント
     for (var l = 0; l <= 50; l++) {
-      await page.type('#js-chat-input-comment', String*l));
+      await page.type('#js-chat-input-comment', String(l));
       await page.click('#js-room-comment > button.js-room-comment-btn.comment-btn.is-disabled');
       await page.waitFor(1000);
     }
 
   } catch (e) {
-    // console.log('catch');
+    console.log(await e);
     await page.close();
     await browser.close();
 };
-  // console.log('catch1');
   await page.close();
   await browser.close();
 });

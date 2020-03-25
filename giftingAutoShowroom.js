@@ -27,7 +27,7 @@ switch (process.argv[2]) {
 
 const option = {
   executablePath: chromePath,
-  // headless: false,
+  headless: false,
   args: [
     '--lang=ja',
     '--window-size=1260,900',
@@ -41,7 +41,7 @@ puppeteer.launch(option).then(async browser => {
 
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');
-  await page.waitFor(3000);
+  await page.waitFor(2000);
   await page.click('#js-side-box > div > div > ul > li:nth-child(2) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
   await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
@@ -50,13 +50,13 @@ puppeteer.launch(option).then(async browser => {
   await page.click('#js-login-submit');
   console.log('Signin!');
 
-  await page.waitFor(3000);
+  await page.waitFor(2000);
   
   // ルームへ入って星を投げる
   try {
     console.log(room);
     await page.goto(room);
-    await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > a > img', { timeout: 20000 });
+    await page.waitForSelector('#room-gift-item-list > li:nth-child(1) > a > img', { timeout: 20000 });
     
     var giftLength = await page.evaluate(() => 
       Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
@@ -97,10 +97,11 @@ puppeteer.launch(option).then(async browser => {
     }
 
     // 50カウント
-    for (var l = 0; l <= 50; l++) {
+    for (var l = 1; l <= 50; l++) {
       await page.type('#js-chat-input-comment', String(l));
-      await page.click('#js-room-comment > button.js-room-comment-btn.comment-btn.is-disabled');
       await page.waitFor(1000);
+      await page.click('#js-room-comment > button');
+      await page.waitFor(1500);
     }
 
   } catch (e) {

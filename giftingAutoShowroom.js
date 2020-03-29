@@ -101,14 +101,14 @@ puppeteer.launch(option).then(async browser => {
       await page.type('#js-chat-input-comment', String(l));
       await page.waitFor(1000);
       await page.click('#js-room-comment > button');
-      await page.waitFor(1500);
+      await page.waitFor(1000);
     }
 
   } catch (e) {
     console.log(await e);
     await page.close();
     await browser.close();
-};
+  };
   await page.close();
   await browser.close();
 });

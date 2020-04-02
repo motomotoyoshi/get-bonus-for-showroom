@@ -20,6 +20,10 @@ switch (process.argv[2]) {
     var room = tRoom2
     break;
 
+  case '3':
+    var room = tRoom3
+    break;
+
   default:
     console.log('Enter Room number.');
     break;
@@ -97,18 +101,20 @@ puppeteer.launch(option).then(async browser => {
     }
 
     // 50カウント
-    for (var l = 1; l <= 50; l++) {
-      await page.type('#js-chat-input-comment', String(l));
-      await page.waitFor(1000);
-      await page.click('#js-room-comment > button');
-      await page.waitFor(1000);
+    if (process.argv[3] === "c") {
+      for (var l = 1; l <= 50; l++) {
+        await page.type('#js-chat-input-comment', String(l));
+        await page.waitFor(1000);
+        await page.click('#js-room-comment > button');
+        await page.waitFor(1000);
+      }
     }
 
   } catch (e) {
     console.log(await e);
-    await page.close();
-    await browser.close();
+    // await page.close();
+    // await browser.close();
   };
-  await page.close();
-  await browser.close();
+  // await page.close();
+  // await browser.close();
 });

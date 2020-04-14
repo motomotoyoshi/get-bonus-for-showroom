@@ -27,7 +27,7 @@ puppeteer.launch(option).then(async browser => {
   await page.waitFor(3000);
   await page.click('#js-login-submit');
 
-  await page.waitFor(3000);
+  await page.waitFor(5000);
 
   const rooms = await page.evaluate(() => {
     
@@ -40,7 +40,7 @@ puppeteer.launch(option).then(async browser => {
     }
     return array;
   });
-  
+
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {
     try {

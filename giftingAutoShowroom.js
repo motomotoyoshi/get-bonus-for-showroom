@@ -6,7 +6,8 @@ const {
   account_id,
   pass,
   tRoom1,
-  tRoom2
+  tRoom2,
+  tRoom3
 } = require('./conf');
 
 var room;
@@ -104,9 +105,9 @@ puppeteer.launch(option).then(async browser => {
     if (process.argv[3] === "c") {
       for (var l = 1; l <= 50; l++) {
         await page.type('#js-chat-input-comment', String(l));
-        await page.waitFor(1000);
+        await page.waitFor(2000);
         await page.click('#js-room-comment > button');
-        await page.waitFor(1000);
+        await page.waitFor(2000);
       }
     }
 

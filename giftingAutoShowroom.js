@@ -32,7 +32,7 @@ switch (process.argv[2]) {
 
 const option = {
   executablePath: chromePath,
-  headless: false,
+  // headless: false,
   args: [
     '--lang=ja',
     '--window-size=1260,900',
@@ -61,10 +61,11 @@ puppeteer.launch(option).then(async browser => {
   try {
     console.log(room);
     await page.goto(room);
+    await page.waitFor(2000);
     await page.waitForSelector('#room-gift-item-list > li:nth-child(1) > a > img', { timeout: 20000 });
     
     var giftLength = await page.evaluate(() => 
-      Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
+      Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
     );
     console.log(await giftLength);
 
@@ -114,8 +115,8 @@ puppeteer.launch(option).then(async browser => {
   } catch (e) {
     console.log(await e);
     // await page.close();
-    // await browser.close();
+    await browser.close();
   };
   // await page.close();
-  // await browser.close();
+  await browser.close();
 });

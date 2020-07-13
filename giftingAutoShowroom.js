@@ -1,28 +1,22 @@
 'use strict';
 
-const puppeteer = require('puppeteer-core');
-const {
-  chromePath,
-  account_id,
-  pass,
-  tRoom1,
-  tRoom2,
-  tRoom3
-} = require('./conf');
+require("dotenv").config();
 
-var room;
+const puppeteer = require('puppeteer-core');
+
+let room = "";
 
 switch (process.argv[2]) {
   case '1':
-    var room = tRoom1
+    room = process.env.Room1
     break;
 
   case '2':
-    var room = tRoom2
+    room = process.env.Room2;
     break;
 
   case '3':
-    var room = tRoom3
+    room = process.env.Room3;
     break;
 
   default:
@@ -31,13 +25,13 @@ switch (process.argv[2]) {
 }
 
 const option = {
-  executablePath: chromePath,
-  // headless: false,
+  executablePath: process.env.chromePath,
+  headless: false,
   args: [
-    '--lang=ja',
-    '--window-size=1260,900',
+    "--lang=ja",
+    "--window-size=1260,900",
     // '--no-sandbox',
-  ]
+  ],
 };
 
 puppeteer.launch(option).then(async browser => {
@@ -49,8 +43,14 @@ puppeteer.launch(option).then(async browser => {
   await page.waitFor(2000);
   await page.click('#js-side-box > div > div > ul > li:nth-child(2) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);
+  await page.type(
+    "#js-login-form > div:nth-child(2) > div:nth-child(1) > input",
+    process.env.account_id
+  );
+  await page.type(
+    "#js-login-form > div:nth-child(2) > div:nth-child(2) > input",
+    process.env.pass
+  );
   await page.waitFor(3000);
   await page.click('#js-login-submit');
   console.log('Signin!');

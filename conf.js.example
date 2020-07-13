@@ -1,7 +1,0 @@
-exports.chromePath = 'YOUR CHROME PATH';
-exports.account_id = 'YOUR ACCOUNT_ID';
-exports.pass = 'YOUR PASSWORD';
-
-exports.tRoom1 = 'https://www.showroom-live.com/TARGET-ROOM1';
-exports.tRoom2 = 'https://www.showroom-live.com/TARGET_ROOM2';
-exports.tRoom3 = 'https://www.showroom-live.com/TARGET_ROOM3';

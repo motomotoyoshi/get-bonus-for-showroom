@@ -7,11 +7,11 @@ Get bonus automatically at SHOWROOM.
 ```
 npm i
 ```
-Create *conf.js* like *conf.js.example*.
+Create *.env* like *.env.example*.
 ```
-exports.chromePath = 'YOUR_CHROME_PATH';
-exports.account_id = 'YOUR_ACCOUNT_ID';
-exports.pass = 'YOUR_PASSWORD';
+chromePath=YOUR_CHROME_PATH
+account_id=YOUR_ACCOUNT_ID
+pass=YOUR_PASSWORD
 ```
 
 Execute

@@ -1,16 +1,17 @@
 'use strict';
 
+require("dotenv").config();
+
 const puppeteer = require('puppeteer-core');
-const { chromePath, account_id, pass } = require('./conf');
 
 const option = {
-  executablePath: chromePath,
+  executablePath: process.env.chromePath,
   headless: false,
   args: [
-    '--lang=ja',
-    '--window-size=1260,900',
+    "--lang=ja",
+    "--window-size=1260,900",
     // '--no-sandbox',
-  ]
+  ],
 };
 
 puppeteer.launch(option).then(async browser => {
@@ -22,8 +23,14 @@ puppeteer.launch(option).then(async browser => {
   await page.waitFor(3000);
   await page.click('#js-side-box > div > div > ul > li:nth-child(2) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(1) > input', account_id);
-  await page.type('#js-login-form > div:nth-child(2) > div:nth-child(2) > input', pass);
+  await page.type(
+    "#js-login-form > div:nth-child(2) > div:nth-child(1) > input",
+    process.env.account_id
+  );
+  await page.type(
+    "#js-login-form > div:nth-child(2) > div:nth-child(2) > input",
+    process.env.pass
+  );
   await page.waitFor(3000);
   await page.click('#js-login-submit');
 

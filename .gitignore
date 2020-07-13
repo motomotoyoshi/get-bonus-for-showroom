@@ -1,3 +1,4 @@
 conf.js
 node_modules/
 *.png
+.env

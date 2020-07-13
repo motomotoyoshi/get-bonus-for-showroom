@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer-core');
 
 const option = {
   executablePath: process.env.chromePath,
-  headless: false,
+  // headless: false,
   args: [
     "--lang=ja",
     "--window-size=1260,900",

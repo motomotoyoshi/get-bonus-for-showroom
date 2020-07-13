@@ -4,19 +4,24 @@ require("dotenv").config();
 
 const puppeteer = require('puppeteer-core');
 
+if (!process.argv[2]) {
+  console.log("Enter Room number.");
+  return;
+}
+
 let room = "";
 
 switch (process.argv[2]) {
   case '1':
-    room = process.env.Room1
+    room = process.env.room1
     break;
 
   case '2':
-    room = process.env.Room2;
+    room = process.env.room2;
     break;
 
   case '3':
-    room = process.env.Room3;
+    room = process.env.room3;
     break;
 
   default:

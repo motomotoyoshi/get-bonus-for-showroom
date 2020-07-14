@@ -122,6 +122,9 @@ puppeteer.launch(option).then(async browser => {
     // await page.close();
     await browser.close();
   };
-  // await page.close();
-  await browser.close();
+
+  
+  if (process.argv[4] === "s") {
+    await browser.close();
+  }
 });

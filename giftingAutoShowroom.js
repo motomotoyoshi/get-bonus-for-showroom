@@ -74,7 +74,7 @@ puppeteer.launch(option).then(async browser => {
     );
     console.log(await giftLength);
 
-    if (giftLength > 10) {
+    if (giftLength > 9) {
       while(giftLength >= 10) {
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
@@ -119,12 +119,11 @@ puppeteer.launch(option).then(async browser => {
 
   } catch (e) {
     console.log(await e);
-    // await page.close();
     await browser.close();
   };
 
   
-  if (process.argv[4] === "s") {
+  if (process.argv[3] === "s" || process.argv[4] === "s") {
     await browser.close();
   }
 });

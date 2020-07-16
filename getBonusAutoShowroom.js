@@ -33,6 +33,7 @@ puppeteer.launch(option).then(async browser => {
   );
   await page.waitFor(3000);
   await page.click('#js-login-submit');
+  console.log('Signin!');
 
   await page.waitFor(5000);
 

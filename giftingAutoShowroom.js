@@ -69,12 +69,12 @@ puppeteer.launch(option).then(async browser => {
     await page.waitFor(2000);
     await page.waitForSelector('#room-gift-item-list > li:nth-child(1) > a > img', { timeout: 20000 });
     
-    var giftLength = await page.evaluate(() => 
+    let giftLength = await page.evaluate(() => 
       Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
     );
     console.log(await giftLength);
 
-    if (giftLength > 9) {
+    if (giftLength >= 9) {
       while(giftLength >= 10) {
         for (var k = 0; k <= 10; k++) {
           await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
@@ -100,7 +100,7 @@ puppeteer.launch(option).then(async browser => {
           await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
         }
         await page.waitFor(2000);
-        var giftLength = await page.evaluate(() =>
+        giftLength = await page.evaluate(() =>
           Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
         );
         console.log(await giftLength);
@@ -111,9 +111,9 @@ puppeteer.launch(option).then(async browser => {
     if (process.argv[3] === "c") {
       for (var l = 1; l <= 50; l++) {
         await page.type('#js-chat-input-comment', String(l));
-        await page.waitFor(2000);
+        await page.waitFor(1500);
         await page.click('#js-room-comment > button');
-        await page.waitFor(2000);
+        await page.waitFor(1500);
       }
     }
 

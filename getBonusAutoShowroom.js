@@ -14,6 +14,8 @@ const option = {
   ],
 };
 
+console.log(new Date().toString({ timeZone: 'Asia/Tokyo'}));
+
 puppeteer.launch(option).then(async browser => {
   const page = await browser.newPage();
   await page.setViewport({ width: 1260, height: 900 });

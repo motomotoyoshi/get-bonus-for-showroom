@@ -76,30 +76,36 @@ puppeteer.launch(option).then(async browser => {
 
     if (giftLength >= 9) {
       while(giftLength >= 10) {
-        for (var k = 0; k <= 10; k++) {
-          await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
-        }
-        await page.waitFor(2000);
+        await gifting(page, 1);
+        await gifting(page, 2);
+        await gifting(page, 3);
+        await gifting(page, 4);
+        await gifting(page, 5);
+        // for (var k = 0; k <= 10; k++) {
+        //   await page.click('#room-gift-item-list > li:nth-child(1) > a > img');
+        // }
+        // await page.waitFor(2000);
 
-        for (var k = 0; k <= 10; k++) {
-          await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
-        }
-        await page.waitFor(2000);
+        // for (var k = 0; k <= 10; k++) {
+        //   await page.click('#room-gift-item-list > li:nth-child(2) > a > img');
+        // }
+        // await page.waitFor(2000);
 
-        for (var k = 0; k <= 10; k++) {
-          await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
-        }
-        await page.waitFor(2000);
+        // for (var k = 0; k <= 10; k++) {
+        //   await page.click('#room-gift-item-list > li:nth-child(3) > a > img');
+        // }
+        // await page.waitFor(2000);
 
-        for (var k = 0; k <= 10; k++) {
-          await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
-        }
-        await page.waitFor(2000);
+        // for (var k = 0; k <= 10; k++) {
+        //   await page.click('#room-gift-item-list > li:nth-child(4) > a > img');
+        // }
+        // await page.waitFor(2000);
 
-        for (var k = 0; k <= 10; k++) {
-          await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
-        }
-        await page.waitFor(2000);
+        // for (var k = 0; k <= 10; k++) {
+        //   await page.click('#room-gift-item-list > li:nth-child(5) > a > img');
+        // }
+        // await page.waitFor(2000);
+
         giftLength = await page.evaluate(() =>
           Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
         );
@@ -127,3 +133,10 @@ puppeteer.launch(option).then(async browser => {
     await browser.close();
   }
 });
+
+const gifting = async (page, num) => {
+  for (var k = 0; k <= 10; k++) {
+    await page.click(`#room-gift-item-list > li:nth-child(${num}) > a > img`);
+  }
+  await page.waitFor(2000);
+}

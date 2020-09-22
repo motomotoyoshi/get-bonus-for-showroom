@@ -75,6 +75,8 @@ puppeteer.launch(option).then(async browser => {
     );
     console.log(await giftLength);
 
+    await page.waitFor(3000);
+
     if (giftLength >= 9) {
       while(giftLength >= 9) {
         await gifting(page, 1);
@@ -84,7 +86,7 @@ puppeteer.launch(option).then(async browser => {
         await gifting(page, 5);
 
         giftLength = await page.evaluate(() =>
-          Number(document.querySelector("#room-gift-item-list > li:nth-child(5) > div").textContent.replace('× ', ''))
+          Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
         );
         console.log(await giftLength);
       }
@@ -101,7 +103,7 @@ puppeteer.launch(option).then(async browser => {
     }
 
   } catch (e) {
-    console.log(await e);
+    console.log(e.message);
     await browser.close();
   };
 

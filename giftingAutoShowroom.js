@@ -34,14 +34,14 @@ const option = {
   headless: false,
   args: [
     "--lang=ja",
-    "--window-size=1260,900",
+    "--window-size=1400,1000",
     // '--no-sandbox',
   ],
 };
 
 puppeteer.launch(option).then(async browser => {
   const page = await browser.newPage();
-  await page.setViewport({ width: 1260, height: 900 });
+  await page.setViewport({ width: 1400, height: 1000 });
 
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');

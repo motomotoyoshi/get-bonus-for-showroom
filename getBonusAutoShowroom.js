@@ -23,7 +23,8 @@ puppeteer.launch(option).then(async browser => {
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');
   await page.waitFor(3000);
-  await page.click('#js-side-box > div > div > ul > li:nth-child(2) > button');
+  await page.click('#hamburger');
+  await page.click('#hamburgerMenu > ul > li:nth-child(10) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
   await page.type(
     "#js-login-form > div:nth-child(2) > div:nth-child(1) > input",
@@ -37,19 +38,21 @@ puppeteer.launch(option).then(async browser => {
   await page.click('#js-login-submit');
   console.log('Signin!');
 
-  await page.waitFor(5000);
+  await page.waitFor(3000);
 
   const rooms = await page.evaluate(() => {
     
     const roomLength = 20;
 
-    const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div > div.listcard-image > div.listcard-overview > div > a.js-room-link.listcard-join-btn");
+    const li = document.querySelectorAll("#js-onlive-collection > div > section > ul > li > div > div.onlivecard-overview > a.js-room-link.onlivecard-join-btn");
     const array = [];
     for (let i = 0; i < roomLength; i++) {
       array.push(li[i].href);
     }
     return array;
   });
+
+  console.log(rooms);
 
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {

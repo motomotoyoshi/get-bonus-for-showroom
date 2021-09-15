@@ -24,6 +24,10 @@ switch (process.argv[2]) {
     room = process.env.room3;
     break;
 
+  case '4':
+    room = process.env.room4;
+    break;
+
   default:
     console.log('Enter Room number.');
     break;

@@ -72,7 +72,7 @@ puppeteer.launch(option).then(async browser => {
   try {
     console.log(room);
     await page.goto(room);
-    await page.waitFor(2000);
+    await page.waitForTimeout(2000);
     await page.waitForSelector('#room-gift-item-list > li:nth-child(1) > a > img', { timeout: 20000 });
     
     let giftLength = await page.evaluate(() => 
@@ -80,7 +80,7 @@ puppeteer.launch(option).then(async browser => {
     );
     console.log(await giftLength);
 
-    await page.waitFor(3000);
+    await page.waitForTimeout(3000);
 
     if (giftLength >= 9) {
       while(giftLength >= 9) {

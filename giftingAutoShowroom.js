@@ -124,5 +124,5 @@ const gifting = async (page, num) => {
   for (var k = 0; k <= 10; k++) {
     await page.click(`#room-gift-item-list > li:nth-child(${num}) > a > img`);
   }
-  await page.waitFor(2000);
+  await page.waitForTimeout(2000);
 }

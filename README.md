@@ -1,4 +1,4 @@
-# get-showroom-bonus-automatically
+# get-bonus-for-showroom
 
 ## Overview
 Get bonus automatically at SHOWROOM.

@@ -49,7 +49,7 @@ puppeteer.launch(option).then(async browser => {
 
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');
-  await page.waitFor(2000);
+  await page.waitForTimeout(2000);
   await page.click('#hamburger');
   await page.click('#hamburgerMenu > ul > li:nth-child(10) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
@@ -61,12 +61,12 @@ puppeteer.launch(option).then(async browser => {
     "#js-login-form > div:nth-child(2) > div:nth-child(2) > input",
     process.env.pass
   );
-  await page.waitFor(3000);
+  await page.waitForTimeout(3000);
   await page.click('#js-login-submit');
 
   console.log('Signin!');
 
-  await page.waitFor(2000);
+  await page.waitForTimeout(2000);
   
   // ルームへ入って星を投げる
   try {
@@ -101,9 +101,9 @@ puppeteer.launch(option).then(async browser => {
     if (process.argv[3] === "c") {
       for (var l = 1; l <= 50; l++) {
         await page.type('#js-chat-input-comment', String(l));
-        await page.waitFor(1500);
+        await page.waitForTimeout(1500);
         await page.click('#js-room-comment > button');
-        await page.waitFor(1500);
+        await page.waitForTimeout(1500);
       }
     }
 

@@ -36,6 +36,7 @@ switch (process.argv[2]) {
 const option = {
   executablePath: process.env.chromePath,
   headless: false,
+  slowMo: 10,
   args: [
     "--lang=ja",
     "--window-size=1400,1000",
@@ -73,10 +74,20 @@ puppeteer.launch(option).then(async browser => {
     console.log(room);
     await page.goto(room);
     await page.waitForTimeout(2000);
-    await page.waitForSelector('#room-gift-item-list > li:nth-child(1) > a > img', { timeout: 20000 });
+    await page.waitForSelector(
+        "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+      ,
+      { timeout: 20000 }
+    );
     
-    let giftLength = await page.evaluate(() => 
-      Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+    let giftLength = await page.evaluate(() =>
+      Number(
+        document
+          .querySelector(
+            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+          )
+          .textContent.replace("× ", "")
+      )
     );
     console.log(await giftLength);
 
@@ -91,7 +102,13 @@ puppeteer.launch(option).then(async browser => {
         await gifting(page, 5);
 
         giftLength = await page.evaluate(() =>
-          Number(document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent.replace('× ', ''))
+          Number(
+            document
+              .querySelector(
+                "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(1) > div > p.num"
+              )
+              .textContent.replace("× ", "")
+          )
         );
         console.log(await giftLength);
       }
@@ -122,7 +139,9 @@ puppeteer.launch(option).then(async browser => {
 
 const gifting = async (page, num) => {
   for (var k = 0; k <= 10; k++) {
-    await page.click(`#room-gift-item-list > li:nth-child(${num}) > a > img`);
+    await page.click(
+      `#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(${num}) > div > p`
+    );
   }
   await page.waitForTimeout(2000);
 }

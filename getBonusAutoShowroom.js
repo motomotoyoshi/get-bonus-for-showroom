@@ -22,7 +22,7 @@ puppeteer.launch(option).then(async browser => {
 
   // ログインまで
   await page.goto('https://www.showroom-live.com/onlive');
-  await page.waitFor(3000);
+  await page.waitForTimeout(2000);
   await page.click('#hamburger');
   await page.click('#hamburgerMenu > ul > li:nth-child(10) > button');
   await page.waitForSelector('#js-login-form > div:nth-child(2) > div:nth-child(1) > input');
@@ -34,11 +34,11 @@ puppeteer.launch(option).then(async browser => {
     "#js-login-form > div:nth-child(2) > div:nth-child(2) > input",
     process.env.pass
   );
-  await page.waitFor(3000);
+  await page.waitForTimeout(2000);
   await page.click('#js-login-submit');
   console.log('Signin!');
 
-  await page.waitFor(3000);
+  await page.waitForTimeout(2000);
 
   const rooms = await page.evaluate(() => {
     
@@ -54,33 +54,45 @@ puppeteer.launch(option).then(async browser => {
 
   console.log(rooms);
 
+      
+  // const giftPath =
+  //   "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num";
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {
+
     try {
       console.log(rooms[j]);
       await page.goto(rooms[j]);
-      await page.waitForSelector('#room-gift-item-list > li:nth-child(2) > div', { timeout: 10000 });
-      
-      const giftLength = await page.evaluate(() => 
-        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
+
+      const giftLength = await page.evaluate(() =>
+        document
+          .querySelector(
+            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+          )
+          .textContent.match(/\d{1,2}/)[0]
       );
 
       // 無料ギフトが99個あったら次のルームへ
-      if (giftLength == '× 99'){
+      if (giftLength == '99'){
         continue;
       }
 
       // bonus取得まで待機
-      await page.waitForSelector('#bonus > section > div.bonus-title', { timeout: 40000 });
-      
-      await page.waitFor(3000);
-      console.log(await page.evaluate(() =>
-        document.querySelector("#room-gift-item-list > li:nth-child(2) > div").textContent
-      ));
+      await page.waitForTimeout(50000);
+      console.log(
+        await page.evaluate(() =>
+          document
+            .querySelector(
+              "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+            )
+            .textContent.match(/\d{1,2}/)[0]
+        )
+      );
       continue;
 
    } catch(e) {
      // 例外発生で次のルームへ
+    console.log(e)
     continue;
    }
   };

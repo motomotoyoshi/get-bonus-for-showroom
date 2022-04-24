@@ -69,13 +69,20 @@ puppeteer.launch(option).then(async browser => {
     console.log(room);
     await page.goto(room);
     await page.waitForTimeout(2000);
-    const giftPath =
-      "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num";
-    await page.waitForSelector(giftPath, { timeout: 20000 });
+    // const giftPath =
+    //   "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num";
+    await page.waitForSelector(
+      "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num",
+      { timeout: 20000 }
+    );
     
     let giftLength = await page.evaluate(() =>
       Number(
-        document.querySelector(giftPath).textContent.replace("× ", "")
+        document
+          .querySelector(
+            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+          )
+          .textContent.replace("× ", "")
       )
     );
     console.log(await giftLength);
@@ -91,7 +98,13 @@ puppeteer.launch(option).then(async browser => {
         await gifting(page, 5);
 
         giftLength = await page.evaluate(() =>
-          Number(document.querySelector(giftPath).textContent.replace("× ", ""))
+          Number(
+            document
+              .querySelector(
+                "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+              )
+              .textContent.replace("× ", "")
+          )
         );
         console.log(await giftLength);
       }

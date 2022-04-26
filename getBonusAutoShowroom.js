@@ -67,7 +67,7 @@ puppeteer.launch(option).then(async browser => {
       const giftLength = await page.evaluate(() =>
         document
           .querySelector(
-            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
           )
           .textContent.match(/\d{1,2}/)[0]
       );
@@ -83,7 +83,7 @@ puppeteer.launch(option).then(async browser => {
         await page.evaluate(() =>
           document
             .querySelector(
-              "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+              "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
             )
             .textContent.match(/\d{1,2}/)[0]
         )

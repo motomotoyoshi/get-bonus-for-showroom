@@ -69,18 +69,12 @@ puppeteer.launch(option).then(async browser => {
     console.log(room);
     await page.goto(room);
     await page.waitForTimeout(2000);
-    // const giftPath =
-    //   "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num";
-    await page.waitForSelector(
-      "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num",
-      { timeout: 20000 }
-    );
     
     let giftLength = await page.evaluate(() =>
       Number(
         document
           .querySelector(
-            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
           )
           .textContent.replace("× ", "")
       )
@@ -101,7 +95,7 @@ puppeteer.launch(option).then(async browser => {
           Number(
             document
               .querySelector(
-                "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+                "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
               )
               .textContent.replace("× ", "")
           )
@@ -136,7 +130,7 @@ puppeteer.launch(option).then(async browser => {
 const gifting = async (page, num) => {
   for (var k = 0; k <= 10; k++) {
     await page.click(
-      `#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(${num}) > div > p`
+      `#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(${num}) > div > p:nth-child(1) > button > img`
     );
   }
   await page.waitForTimeout(2000);

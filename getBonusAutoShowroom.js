@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer-core');
 
 const option = {
   executablePath: process.env.chromePath,
-  // headless: false,
+  headless: false,
   args: [
     "--lang=ja",
     "--window-size=1260,900",
@@ -78,7 +78,7 @@ puppeteer.launch(option).then(async browser => {
       }
 
       // bonus取得まで待機
-      await page.waitForTimeout(50000);
+      await page.waitForTimeout(40000);
       console.log(
         await page.evaluate(() =>
           document

@@ -107,9 +107,11 @@ puppeteer.launch(option).then(async browser => {
     // 50カウント
     if (process.argv[3] === "c") {
       for (var l = 1; l <= 50; l++) {
-        await page.type('#js-chat-input-comment', String(l));
+        const cmI = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-input > input[type=text]';
+        await page.type(cmI, String(l));
         await page.waitForTimeout(1500);
-        await page.click('#js-room-comment > button');
+        const cmB = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-button > button';
+        await page.click(cmB);
         await page.waitForTimeout(1500);
       }
     }

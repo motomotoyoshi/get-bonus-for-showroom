@@ -83,37 +83,37 @@ puppeteer.launch(option).then(async browser => {
 
     await page.waitForTimeout(3000);
 
-    if (giftLength >= 9) {
-      while(giftLength >= 9) {
-        await gifting(page, 1);
-        await gifting(page, 2);
-        await gifting(page, 3);
-        await gifting(page, 4);
-        await gifting(page, 5);
+    // if (giftLength >= 9) {
+    //   while(giftLength >= 9) {
+    //     await gifting(page, 1);
+    //     await gifting(page, 2);
+    //     await gifting(page, 3);
+    //     await gifting(page, 4);
+    //     await gifting(page, 5);
 
-        giftLength = await page.evaluate(() =>
-          Number(
-            document
-              .querySelector(
-                "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
-              )
-              .textContent.replace("× ", "")
-          )
-        );
-        console.log(await giftLength);
-      }
-    }
+    //     giftLength = await page.evaluate(() =>
+    //       Number(
+    //         document
+    //           .querySelector(
+    //             "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
+    //           )
+    //           .textContent.replace("× ", "")
+    //       )
+    //     );
+    //     console.log(await giftLength);
+    //   }
+    // }
 
     // 50カウント
     if (process.argv[3] === "c") {
-      for (var l = 1; l <= 50; l++) {
-        const cmI = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-input > input[type=text]';
-        await page.type(cmI, String(l));
-        await page.waitForTimeout(1500);
-        const cmB = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-button > button';
-        await page.click(cmB);
-        await page.waitForTimeout(1500);
-      }
+      // for (var l = 1; l <= 50; l++) {
+      //   const cmI = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-input > input[type=text]';
+      //   await page.type(cmI, String(l));
+      //   await page.waitForTimeout(1500);
+      //   const cmB = '#__layout > div > div:nth-child(1) > div > div.st-comment__box.comment-form.active > form > div.comment-button > button';
+      //   await page.click(cmB);
+      //   await page.waitForTimeout(1500);
+      // }
     }
 
   } catch (e) {

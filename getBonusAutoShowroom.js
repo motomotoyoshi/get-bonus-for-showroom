@@ -51,43 +51,17 @@ puppeteer.launch(option).then(async browser => {
     }
     return array;
   });
-
   console.log(rooms);
-
       
   // const giftPath =
-  //   "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div > div.gift-box-container > div.gifts-contaier > ul > li:nth-child(2) > div > p.num";
   // ルームへ入って星を取得
   for (var j = 0; j < rooms.length;j++) {
-
     try {
       console.log(rooms[j]);
       await page.goto(rooms[j]);
 
-      const giftLength = await page.evaluate(() =>
-        document
-          .querySelector(
-            "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
-          )
-          .textContent.match(/\d{1,2}/)[0]
-      );
-
-      // 無料ギフトが99個あったら次のルームへ
-      if (giftLength == '99'){
-        continue;
-      }
-
       // bonus取得まで待機
       await page.waitForTimeout(40000);
-      console.log(
-        await page.evaluate(() =>
-          document
-            .querySelector(
-              "#__layout > div > div:nth-child(1) > div > div.st-gift_box.gift-box.active > div.gifts-contaier > ul > li:nth-child(2) > div > p.num"
-            )
-            .textContent.match(/\d{1,2}/)[0]
-        )
-      );
       continue;
 
    } catch(e) {
